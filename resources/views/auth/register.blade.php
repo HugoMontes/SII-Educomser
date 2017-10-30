@@ -11,13 +11,10 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {!! csrf_field() !!}
-
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Nombre</label>
-
+                            <label class="col-md-4 control-label">Nombre(s)</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
-
+                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Ingresar su nombre">
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -26,11 +23,46 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('paterno') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Apellido paterno</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="paterno" value="{{ old('paterno') }}" placeholder="Ingresar su apellido paterno">
+                                @if ($errors->has('paterno'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('paterno') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('materno') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Apellido materno</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="materno" value="{{ old('materno') }}" placeholder="Ingresar su apellido materno">
+                                @if ($errors->has('materno'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('materno') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Teléfono</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" placeholder="Ingresar su número telefonico">
+                                @if ($errors->has('telefono'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('telefono') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Correo Electrónico</label>
-
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="ejemplo@gmail.com">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -42,7 +74,6 @@
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Contraseña</label>
-
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="password">
 
@@ -56,7 +87,6 @@
 
                         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Confirmar Contraseña</label>
-
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="password_confirmation">
 

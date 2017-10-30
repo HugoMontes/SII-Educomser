@@ -13,7 +13,7 @@ class AddTipoUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('tipo', ['admin', 'gerencia', 'docente', 'recepcion', 'usuario']);
+            $table->enum('tipo', ['admin', 'gerencia', 'docente', 'recepcion', 'usuario'])->default('usuario');
         });
     }
 
