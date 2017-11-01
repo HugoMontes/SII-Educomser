@@ -23,7 +23,7 @@
         </td>
         <td>
             <div class="btn-group" role="group" aria-label="Center Align">
-                <a href="{{ route('admin.registro.vincular', $user->id) }}" type="button" class="btn btn-sm btn-default" title="Vincular">
+                <a href="{{ route('admin.registro.vinculo', $user->id) }}" type="button" class="btn btn-sm btn-default" title="Vincular">
                     <i class="fa fa-handshake-o"></i>
                     <span class="sr-only">Vincular</span>
                 </a>

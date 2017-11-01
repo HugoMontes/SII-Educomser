@@ -99,7 +99,8 @@ Route::group(['prefix' => 'admin'], function(){
 
         // Backend Registrados
         Route::get('registro', 'RegistroController@index')->name('admin.registro.index');
-        Route::get('registro/vincular/{id}', 'RegistroController@vincular')->name('admin.registro.vincular');
+        Route::get('registro/vinculo/{id}', 'RegistroController@vincular')->name('admin.registro.vinculo');
+        Route::get('registro/vinculo/store', 'RegistroController@store')->name('admin.registro.vinculo.store');
     });
     // Backend Carrera
     Route::get('carrera/logo/{nombreLogo}', 'CarreraController@verLogo')->name('admin.carrera.verlogo');

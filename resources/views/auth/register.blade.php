@@ -14,7 +14,7 @@
                         <div class="form-group{{ $errors->has('ci') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Cedula de identidad*</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="ci" value="{{ old('ci') }}" placeholder="Ingresar su cédula de identidad">
+                                <input type="text" class="form-control" name="ci" value="{{ old('ci') }}" placeholder="Ej. 3141592">
                                 @if ($errors->has('ci'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('ci') }}</strong>
@@ -26,7 +26,7 @@
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Nombre*</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Ingresar su nombre">
+                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Ej. Juan">
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -38,7 +38,7 @@
                         <div class="form-group{{ $errors->has('paterno') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Apellido paterno*</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="paterno" value="{{ old('paterno') }}" placeholder="Ingresar su apellido paterno">
+                                <input type="text" class="form-control" name="paterno" value="{{ old('paterno') }}" placeholder="Ej. Perez">
                                 @if ($errors->has('paterno'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('paterno') }}</strong>
@@ -50,7 +50,7 @@
                         <div class="form-group{{ $errors->has('materno') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Apellido materno</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="materno" value="{{ old('materno') }}" placeholder="Ingresar su apellido materno">
+                                <input type="text" class="form-control" name="materno" value="{{ old('materno') }}" placeholder="Ej. Gomez">
                                 @if ($errors->has('materno'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('materno') }}</strong>
@@ -62,7 +62,7 @@
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Correo Electrónico*</label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="ejemplo@gmail.com">
+                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Ej. juan@gmail.com">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
