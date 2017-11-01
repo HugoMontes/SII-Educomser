@@ -93,6 +93,13 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('curso/{capitulo}/create_topico', 'CursoController@create_topico')->name('admin.curso.create_topico');
         Route::put('curso/{capitulo}/update_topico', 'CursoController@update_topico')->name('admin.curso.update_topico');
         Route::get('curso/{idTopico}/topico', 'CursoController@getTopico')->name('admin.curso.getTopico');
+
+        // Backend User
+        Route::resource('user', 'UserController');
+
+        // Backend Registrados
+        Route::get('registro', 'RegistroController@index')->name('admin.registro.index');
+        Route::get('registro/vincular/{id}', 'RegistroController@vincular')->name('admin.registro.vincular');
     });
     // Backend Carrera
     Route::get('carrera/logo/{nombreLogo}', 'CarreraController@verLogo')->name('admin.carrera.verlogo');
@@ -150,4 +157,8 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('ayuda/cursos', 'AyudaController@cursos')->name('admin.ayuda.cursos');
     Route::get('ayuda/carreras', 'AyudaController@carreras')->name('admin.ayuda.carreras');
     Route::get('ayuda/docentes', 'AyudaController@docentes')->name('admin.ayuda.docentes');
+});
+
+Route::group(['prefix'=>'usuario', 'middleware'=>'auth'], function(){
+    Route::get('home', 'usuario\HomeController@index')->name('usuario.index');
 });

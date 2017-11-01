@@ -68,17 +68,24 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             Administrar <span class="caret"></span>
                         </a>
-                        
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('admin.carrera.index') }}"><i class="fa fa-btn fa-cubes"></i>Carreras</a></li>
-                            <li><a href="{{ route('admin.curso.index') }}"><i class="fa fa-btn fa-cube"></i>Cursos</a></li>
-                            <li><a href="{{ route('admin.docente.index') }}"><i class="fa fa-btn fa-user-plus"></i>Docentes</a></li>
-                            <li><a href="{{ route('admin.alumno.index') }}"><i class="fa fa-btn fa-user"></i>Alumnos</a></li>
-                            <li><a href="{{ route('admin.cronograma.index') }}"><i class="fa fa-btn fa-calendar"></i>Cronogramas de Cursos</a></li>
-                            <li><a href="{{ route('admin.cronograma_carrera.index') }}"><i class="fa fa-btn fa-calendar"></i>Cronogramas de Carreras</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{{ route('admin.ayuda.cursos') }}"><i class="fa fa-btn fa-question"></i>Ayuda</a></li>
-                        </ul>
+                        @if(Auth::user()->tipo == 'admin')
+                          <ul class="dropdown-menu" role="menu">
+                              <li><a href="{{ route('admin.carrera.index') }}"><i class="fa fa-btn fa-cubes"></i>Carreras</a></li>
+                              <li><a href="{{ route('admin.curso.index') }}"><i class="fa fa-btn fa-cube"></i>Cursos</a></li>
+                              <li><a href="{{ route('admin.docente.index') }}"><i class="fa fa-btn fa-user-plus"></i>Docentes</a></li>
+                              <li><a href="{{ route('admin.alumno.index') }}"><i class="fa fa-btn fa-user"></i>Alumnos</a></li>
+                              <li><a href="{{ route('admin.registro.index') }}"><i class="fa fa-btn fa-id-card-o"></i>Registrados</a></li>
+                              <li><a href="{{ route('admin.user.index') }}"><i class="fa fa-btn fa-users"></i>Usuarios </a></li>
+                              <li><a href="{{ route('admin.cronograma.index') }}"><i class="fa fa-btn fa-calendar"></i>Cronogramas de Cursos</a></li>
+                              <li><a href="{{ route('admin.cronograma_carrera.index') }}"><i class="fa fa-btn fa-calendar"></i>Cronogramas de Carreras</a></li>
+                              <li role="separator" class="divider"></li>
+                              <li><a href="{{ route('admin.ayuda.cursos') }}"><i class="fa fa-btn fa-question"></i>Ayuda</a></li>
+                          </ul>
+                          @elseif(Auth::user()->tipo == 'usuario')
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#"><i class="fa fa-btn fa-cubes"></i>Cursos</a></li>
+                            </ul>
+                          @endif
                     </li>
                 </ul>
 

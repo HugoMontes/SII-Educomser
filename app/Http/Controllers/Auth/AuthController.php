@@ -7,7 +7,6 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use App\Persona;
 
 class AuthController extends Controller
 {
@@ -51,9 +50,9 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
+            'ci' => 'required|max:255',
             'paterno' => 'required|max:255',
             'materno' => 'max:255',
-            'telefono' => 'max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -67,14 +66,11 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-      /*
-        Persona::create([
-            'nombres' => $data['name'],
-            'email' => $data['email'],
-        ]);
-      */
         return User::create([
             'name' => $data['name'],
+            'ci' => $data['ci'],
+            'paterno' => $data['paterno'],
+            'materno' => $data['materno'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
