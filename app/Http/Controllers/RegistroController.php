@@ -24,10 +24,9 @@ class RegistroController extends Controller
     return view('admin.registro.index')->with('users', $users);
   }
 
-  public function vincular($id){
+  public function vincular_form($id){
     try{
         $user = User::find($id);
-        // $personas = Persona::orderBy('personas.updated_at', 'DESC')->limit(10)->get();
         $personas = Persona::where('numero_ci', 'like', '%' . $user->ci . '%')
                     ->orWhere('primer_apellido', 'like', '%' . $user->paterno . '%')
                     ->orderBy('primer_apellido', 'ASC')->limit(10)->get();
@@ -36,10 +35,45 @@ class RegistroController extends Controller
         flash('Wow!!! se presentó un problema al buscar datos... Intenta más tarde. El mensaje es el siguiente: '.$ex->getMessage(), 'danger')->important();
         return redirect()->route('admin.registro.index');
     }
-    // return "vinculando....".$id;
   }
 
-  public function store(){
-    return "vinculando....";
+  public function desvincular_form($id){
+    try{
+        $user = User::find($id);
+        $persona = Persona::find($user->persona_codigo);
+        return view('admin.registro.desvincular')->with('user', $user)->with('persona', $persona);
+    }catch(\Exception $ex){
+        flash('Wow!!! se presentó un problema al buscar datos... Intenta más tarde. El mensaje es el siguiente: '.$ex->getMessage(), 'danger')->important();
+        return redirect()->route('admin.registro.index');
+    }
+  }
+
+  public function vincular(Request $request){
+    try{
+      $codigo=$request->codigo;
+      $user=User::find($request->id_user);
+      $user->persona_codigo=$codigo;
+      $user->update($request->all());
+      $nombre_completo=$user->materno.' '.$user->paterno.' '.$user->name;
+      flash('Se ha vinculado al usuario '.$nombre_completo.' exitosamente.','success')->important();
+      return redirect()->route('admin.registro.index');
+    }catch(\Exception $ex){
+        flash('Wow!!! se presentó un problema al vincular... Intenta más tarde. El mensaje es el siguiente: '.$ex->getMessage(), 'danger')->important();
+        return redirect()->route('admin.registro.index');
+    }
+  }
+
+  public function desvincular($id){
+    try{
+      $user=User::find($id);
+      $user->persona_codigo='';
+      $user->update();
+      $nombre_completo=$user->materno.' '.$user->paterno.' '.$user->name;
+      flash('Se ha eliminado el vinculo del usuario '.$nombre_completo.' exitosamente.','success')->important();
+      return redirect()->route('admin.registro.index');
+    }catch(\Exception $ex){
+        flash('Wow!!! se presentó un problema al eliminar el vinculo... Intenta más tarde. El mensaje es el siguiente: '.$ex->getMessage(), 'danger')->important();
+        return redirect()->route('admin.registro.index');
+    }
   }
 }

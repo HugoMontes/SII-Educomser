@@ -1,33 +1,16 @@
 @extends('layouts.app')
-@section('styles')
-  <style media="screen">
-    #tbl-alumnos td {
-      /*border: 1px #DDD solid;*/
-      /*padding: 5px;*/
-      cursor: pointer;
-    }
-    #tbl-alumnos th {
-      background-color: #f5f5f5;
-    }
-    .selected {
-      background-color: #186ba0;
-      color: #FFF;
-    }
-  </style>
-@endsection
-
 @section('content')
 <div class="container">
 
-  {!! Form::open(['route' => 'admin.registro.vinculo.vincular', 'method' => 'POST', 'id' => 'form-create']) !!}
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4><i class="fa fa-btn fa-id-card-o"></i>Registro de Usuario</h4>
+      <h4><i class="fa fa-handshake-o"></i> Registro Vinculado</h4>
     </div>
     <div class="panel-body">
       <div class="row">
-        <div class="col-md-7">
-          <table class="table">
+        <div class="col-md-6">
+          <h4><i class="fa fa-btn fa-id-card-o"></i> Registro de Usuario</h4>
+          <table class="table table-bordered">
             <tbody>
               <tr>
                 <th><i class="fa fa-btn fa-list-alt"></i> CI:</th>
@@ -48,33 +31,26 @@
             </tbody>
           </table>
         </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-           <h3 class="panel-title">Lista de Alumnos</h3>
-        </div>
-        <div class="panel-body">
-          <p>Seleccionar un registro de alumno para vincularlo con el usuario.</p>
-          <table id="tbl-alumnos" class="table table-bordered">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Código</th>
-                <th>CI</th>
-                <th>Nombre Completo</th>
-                <th>Correo Electronico</th>
-              </tr>
-            </thead>
+        <div class="col-md-6">
+          <table class="table table-bordered">
+            <h4><i class="fa fa-btn fa-user"></i> Registro de Alumno</h4>
             <tbody>
-              @foreach($personas as $persona)
               <tr>
-                <td style="text-align:center;"><input type="radio" name="codigo" value="{{ $persona->codigo }}" /></td>
-                <td>{{ $persona->codigo }}</td>
+                <th><i class="fa fa-btn fa-list-alt"></i> CI:</th>
                 <td>{{ $persona->numero_ci }}</td>
-                <td>{{ $persona->primer_apellido }} {{ $persona->segundo_apellido }} {{ $persona->nombres }}</td>
-                <td>{{ $persona->email }}</td>
               </tr>
-              @endforeach
+              <tr>
+                <th><i class="fa fa-btn fa-user"></i> Nombre Completo:</th>
+                <td>{{ $persona->primer_apellido }} {{ $persona->segundo_apellido }} {{ $persona->nombres }}</td>
+              </tr>
+              <tr>
+                <th><i class="fa fa-btn fa-envelope"></i> Correo Electrónico:</th>
+                <td><a href="mailto:{{ $persona->email }}">{{ $persona->email }}</a></td>
+              </tr>
+              <tr>
+                <th><i class="fa fa-btn fa-list-alt"></i> Código:</th>
+                <td>{{ $persona->codigo }}</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -84,13 +60,11 @@
       <a href="{{ route('admin.registro.index') }}" class="btn btn-default">
         <i class="fa fa-close"></i> Cancelar
       </a>
-      <input type="hidden" name="id_user" value="{{ $user->id }}">
-      <button type="submit" id="btn-agregar" class="btn btn-default">
-        <i class="fa fa-handshake-o"></i> Vincular
-      </button>
+      <a href="{{ route('admin.registro.vinculo.desvincular', $user->id) }}" class="btn btn-default">
+        <i class="fa fa-chain-broken"></i> Desvincular
+      </a>
     </div>
   </div>
-  {!! Form::close() !!}
 </div>
 @endsection
 
@@ -100,8 +74,15 @@
   $("#tbl-alumnos tbody tr").click(function(){
      $(this).addClass('selected').siblings().removeClass('selected');
      $(this).find('td:first input').prop("checked", true);
+     //$("#radio_1").prop("checked", true)
      var value=$(this).find('td:first').html();
      console.log(value);
+     /*alert(value);*/
   });
+  /*
+  $('.ok').on('click', function(e){
+      alert($("#tbl-alumnos tr.selected td:first").html());
+  });
+  */
   </script>
 @endsection

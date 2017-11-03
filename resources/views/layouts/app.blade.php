@@ -27,6 +27,7 @@
             margin-right: 6px;
         }
     </style>
+    @yield('styles')
 </head>
 <body id="app-layout">
 

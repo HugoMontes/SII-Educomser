@@ -6,6 +6,7 @@
         <th>Email</th>
         <th>Fecha de registro</th>
         <th>Estado</th>
+        <th>Vinculo</th>
         <th></th>
     </tr>
     @foreach($users as $user)
@@ -22,11 +23,20 @@
           @endif
         </td>
         <td>
+          @if($user->persona_codigo!='')
+            <a href="{{ route('admin.registro.desvincular_form', $user->id) }}" type="button" class="btn btn-sm btn-success" title="Vinculado">
+                <i class="fa fa-handshake-o"></i>
+                <span class="sr-only">Vinculado</span>
+            </a>
+          @else
+            <a href="{{ route('admin.registro.vincular_form', $user->id) }}" type="button" class="btn btn-sm btn-default" title="Vincular">
+                <i class="fa fa-handshake-o"></i>
+                <span class="sr-only">Vincular</span>
+            </a>
+          @endif
+        </td>
+        <td>
             <div class="btn-group" role="group" aria-label="Center Align">
-                <a href="{{ route('admin.registro.vinculo', $user->id) }}" type="button" class="btn btn-sm btn-default" title="Vincular">
-                    <i class="fa fa-handshake-o"></i>
-                    <span class="sr-only">Vincular</span>
-                </a>
                 <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#destroy" data-codigo="{{ $user->id }}" title="Eliminar">
                     <i class="fa fa-trash"></i>
                     <span class="sr-only">Eliminar</span>
@@ -44,105 +54,3 @@
     </div>
 </div>
 @endif
-
-<div class="panel-footer">
-    <div class="text-center">{{ $users->render() }}</div>
-</div>
-
-@section('script')
-@parent
-<script>
-    // Reset Form
-    function resetForm(obj){
-        obj.find('form')[0].reset();
-        $('.help-block>strong').html('');
-        $('.has-error').removeClass('has-error');
-    }
-    // Validation
-    function validation(response){
-        if(response.responseJSON['name']){
-            $('.wrapper-nombre').addClass('has-error');
-            $('.wrapper-nombre .help-block>strong').html(response.responseJSON['name']);
-        }else{
-            $('.wrapper-nombre').removeClass('has-error');
-            $('.wrapper-nombre .help-block>strong').html('');
-        }
-    }
-    // Paginación
-    $(document).on('click', '.pagination a', function (e){
-        e.preventDefault();
-        var href = $(this).attr('href').split('?');
-        var url = href[0];
-        var data = href[1];
-        $.ajax({
-            url: url,
-            method: 'GET',
-            dataType: 'JSON',
-            data: data,
-            beforeSend: function(e){
-                $('#msg-index').css('display', 'block');
-            }
-        }).done(function (response){
-            $('.content-ajax').html(response);
-            $('#msg-index').css('display', 'none');
-        });
-    });
-
-    // Llenar Form -> Editar
-    $(document).on('click', 'button[data-target="#update"]', function(e){
-        var idUser = $(this).attr('data-codigo');
-        var url = '/admin/user/' + idUser + '/edit';
-        var data = 'user=' + idUser;
-        $.ajax({
-            url: url,
-            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-            method: 'GET',
-            dataType: 'JSON',
-            data: data,
-            beforeSend: function(e){
-                $('#msg-update').css('display', 'block');
-                $('#form-update').css('display', 'none');
-            }
-        }).done(function (response){
-          console.log(response['user']);
-            $.each(response['user'], function(key, value){
-                $('input[name="'+key+'"]').val(value);
-                $('select[name="'+key+'"]').val(value);
-            });
-            //$('select[name="'+response['user']+'"]').val(value);
-            $('#msg-update').css('display', 'none');
-            $('#form-update').css('display', 'block');
-            $('#form-update').attr('data-id', idUser);
-        });
-    });
-
-    // Llenar Form -> Eliminar
-    $(document).on('click', 'button[data-target="#destroy"]', function(e){
-        var idUser = $(this).attr('data-codigo');
-        var url = '/admin/user/' + idUser + '/edit';
-        var data = 'user=' + idUser;
-        $.ajax({
-            url: url,
-            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-            method: 'GET',
-            dataType: 'JSON',
-            data: data,
-            beforeSend: function(e){
-                $('#msg-destroy').css('display', 'block');
-                $('#form-destroy').css('display', 'none');
-            }
-        }).done(function (response){
-            if(response['cursos'] == 0){
-                $('#question-destroy').html("¿Está seguro de eliminar el usuario: <i>"+ response['user']['name'] +"</i>?");
-                $('#btn-eliminar').css('display', 'inline-block');
-            }else{
-                $('#question-destroy').html("El usuario: <i>"+ response['user']['name'] +"</i> tiene cursos que dependen de la misma, por lo tanto no es posible eliminarla.<br/><h6>* Si es necesario eliminar dicho usuario, elimine primero los cursos dependientes.</h6>");
-                $('#btn-eliminar').css('display', 'none');
-            }
-            $('#msg-destroy').css('display', 'none');
-            $('#form-destroy').css('display', 'block');
-            $('#form-destroy').attr('data-id', idUser);
-        });
-    });
-</script>
-@endsection
