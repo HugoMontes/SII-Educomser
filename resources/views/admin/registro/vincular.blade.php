@@ -51,10 +51,12 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">
-           <h3 class="panel-title">Lista de Alumnos</h3>
+           <h3 class="panel-title">Seleccionar un registro de alumno para vincularlo con el usuario</h3>
         </div>
         <div class="panel-body">
-          <p>Seleccionar un registro de alumno para vincularlo con el usuario.</p>
+          @if ($errors->has('codigo'))
+            <div class="alert alert-danger" role="alert">Favor seleccionar un registro de alumno para vincularlo. {{ $errors->first('codigo') }}</div>
+          @endif
           <table id="tbl-alumnos" class="table table-bordered">
             <thead>
               <tr>

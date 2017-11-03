@@ -49,13 +49,16 @@ class RegistroController extends Controller
   }
 
   public function vincular(Request $request){
+    $this->validate($request, [
+        'codigo' => 'required'
+    ]);
     try{
       $codigo=$request->codigo;
       $user=User::find($request->id_user);
       $user->persona_codigo=$codigo;
       $user->update($request->all());
       $nombre_completo=$user->materno.' '.$user->paterno.' '.$user->name;
-      flash('Se ha vinculado al usuario '.$nombre_completo.' exitosamente.','success')->important();
+      flash('Se ha vinculado a '.$nombre_completo.' exitosamente.','success')->important();
       return redirect()->route('admin.registro.index');
     }catch(\Exception $ex){
         flash('Wow!!! se presentó un problema al vincular... Intenta más tarde. El mensaje es el siguiente: '.$ex->getMessage(), 'danger')->important();
@@ -69,11 +72,49 @@ class RegistroController extends Controller
       $user->persona_codigo='';
       $user->update();
       $nombre_completo=$user->materno.' '.$user->paterno.' '.$user->name;
-      flash('Se ha eliminado el vinculo del usuario '.$nombre_completo.' exitosamente.','success')->important();
+      flash('Se ha eliminado el vinculo de '.$nombre_completo.' exitosamente.','success')->important();
       return redirect()->route('admin.registro.index');
     }catch(\Exception $ex){
         flash('Wow!!! se presentó un problema al eliminar el vinculo... Intenta más tarde. El mensaje es el siguiente: '.$ex->getMessage(), 'danger')->important();
         return redirect()->route('admin.registro.index');
+    }
+  }
+
+  public function edit(Request $request, $id)
+  {
+    if ($request->ajax()){
+        try{
+            $user = User::find($id);
+            return response()->json([
+                'user' => $user
+            ]);
+        }catch(\Exception $ex){
+            flash('Wow!!! se presentó un problema al buscar datos... Intenta más tarde. El mensaje es el siguiente: '.$ex->getMessage(), 'danger')->important();
+            return response()->json([
+                'mensaje' => $ex->getMessage(),
+            ]);
+        }
+    }
+  }
+
+  public function change_status(Request $request, $id)
+  {
+    if ($request->ajax()){
+        try{
+            $user = User::find($id);
+            $user->is_active = !$user->is_active;
+            $user->update();
+            $estado=$user->is_active?'ACTIVO':'INACTIVO';
+            $nombre_completo=strtoupper($user->paterno.' '.$user->materno.' '.$user->name);
+            return response()->json([
+                'mensaje' => '<strong>'.$nombre_completo.':</strong> Se ha cambiado el estado a <strong>'.$estado.'</strong>',
+            ]);
+        }catch(\Exception $ex){
+            flash('Wow!!! se presentó un problema al buscar datos... Intenta más tarde. El mensaje es el siguiente: '.$ex->getMessage(), 'danger')->important();
+            return response()->json([
+                'mensaje' => $ex->getMessage(),
+            ]);
+        }
     }
   }
 }

@@ -42,11 +42,6 @@
     </div>
 </div>
 @endif
-
-<div class="panel-footer">
-    <div class="text-center">{{ $users->render() }}</div>
-</div>
-
 @section('script')
 @parent
 <script>
@@ -130,13 +125,8 @@
                 $('#form-destroy').css('display', 'none');
             }
         }).done(function (response){
-            if(response['cursos'] == 0){
-                $('#question-destroy').html("¿Está seguro de eliminar el usuario: <i>"+ response['user']['name'] +"</i>?");
-                $('#btn-eliminar').css('display', 'inline-block');
-            }else{
-                $('#question-destroy').html("El usuario: <i>"+ response['user']['name'] +"</i> tiene cursos que dependen de la misma, por lo tanto no es posible eliminarla.<br/><h6>* Si es necesario eliminar dicho usuario, elimine primero los cursos dependientes.</h6>");
-                $('#btn-eliminar').css('display', 'none');
-            }
+            $('#question-destroy').html("¿Está seguro de eliminar el usuario: <i>"+ response['user']['name'] +"</i>?");
+            $('#btn-eliminar').css('display', 'inline-block');
             $('#msg-destroy').css('display', 'none');
             $('#form-destroy').css('display', 'block');
             $('#form-destroy').attr('data-id', idUser);

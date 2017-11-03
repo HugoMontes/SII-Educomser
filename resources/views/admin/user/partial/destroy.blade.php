@@ -6,7 +6,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="Eliminar">
-                    <i class="fa fa-btn fa-level-up"></i>Eliminar usuario
+                    <i class="fa fa-btn fa-trash"></i>Eliminar usuario
                 </h4>
             </div>
 

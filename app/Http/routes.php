@@ -103,6 +103,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('registro/vinculo/desvincular/form/{id}', 'RegistroController@desvincular_form')->name('admin.registro.desvincular_form');
         Route::post('registro/vinculo/vincular', 'RegistroController@vincular')->name('admin.registro.vinculo.vincular');
         Route::get('registro/vinculo/desvincular/{id}', 'RegistroController@desvincular')->name('admin.registro.vinculo.desvincular');
+        Route::get('registro/{id}/edit', 'RegistroController@edit')->name('admin.registro.edit');
+        Route::get('registro/{id}/change/status', 'RegistroController@change_status')->name('admin.registro.change_status');
     });
     // Backend Carrera
     Route::get('carrera/logo/{nombreLogo}', 'CarreraController@verLogo')->name('admin.carrera.verlogo');

@@ -2,6 +2,8 @@
 
 @section('content')
 <div class="container">
+    <div id="ajax-success" class="alert alert-success" role="alert" style="display:none;">
+    </div>
     <div class="row">
         <!-- Panel Registrados -->
         <div class="panel panel-default">

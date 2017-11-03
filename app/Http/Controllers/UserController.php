@@ -133,8 +133,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+      if ($request->ajax()){
+          try{
+              $user = User::find($id);
+              $user->delete();
+              $nombre_completo=$user->primer_paterno.' '.$user->segundo_materno.' '.$user->name;
+              flash('Se eliminó al usuario: '.$nombre_completo, 'danger')->important();
+              return response()->json([
+                  'mensaje' => $user->id,
+              ]);
+          }catch(\Exception $ex){
+              flash('Wow!!! se presentó un problema al eliminar... Intenta más tarde. El mensaje es el siguiente: '.$ex->getMessage(), 'danger')->important();
+              return response()->json([
+                  'mensaje' => $ex->getMessage(),
+              ]);
+          }
+      }
     }
 }
