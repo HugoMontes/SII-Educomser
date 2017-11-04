@@ -19,6 +19,12 @@ class AddFieldsToUsers extends Migration
         $table->boolean('is_active')->default(true);
         $table->string('persona_codigo', 12);
       });
+      Schema::table('users', function (Blueprint $table) {
+        $table->dropColumn('tipo');
+      });
+      Schema::table('users', function (Blueprint $table) {
+        $table->enum('tipo', ['admin', 'gerencia', 'docente', 'recepcion', 'usuario'])->default('usuario');
+      });
     }
 
     /**
@@ -34,6 +40,12 @@ class AddFieldsToUsers extends Migration
         $table->dropColumn('materno');
         $table->dropColumn('is_active');
         $table->dropColumn('persona_codigo');
+      });
+      Schema::table('users', function (Blueprint $table) {
+        $table->dropColumn('tipo');
+      });
+      Schema::table('users', function (Blueprint $table) {
+        $table->enum('tipo', ['admin', 'gerencia', 'docente', 'recepcion', 'usuario']);
       });
     }
 }
