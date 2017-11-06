@@ -46,6 +46,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+      $this->validate($request, [
+          'name' => 'required|string',
+          'paterno' => 'required|string',
+          'email' => 'required|string|email|unique:users',
+          'password' => 'required|string|min:6',
+          'tipo' => 'required',
+      ]);
       if ($request->ajax()){
           try{
               $user = new User($request->all());
@@ -111,7 +118,13 @@ class UserController extends Controller
       if ($request->ajax()){
           try{
               $user = User::find($id);
+              $password_old=$user->password;
               $user->fill($request->all());
+              if($request->password==''){
+                $user->password = bcrypt($password_old);
+              }else{
+                $user->password = bcrypt($user->password);
+              }
               $user->update();
               $nombre_completo=$user->paterno.' '.$user->materno.' '.$user->name;
               flash('Se modificó el usuario: '.$nombre_completo, 'warning')->important();
@@ -150,6 +163,40 @@ class UserController extends Controller
                   'mensaje' => $ex->getMessage(),
               ]);
           }
+      }
+    }
+
+    public function edit_form(Request $request, $id){
+      try{
+        if($request->user()->id==$id){
+          $user = User::find($id);
+          return view('admin.user.edit_form')->with('user', $user);
+        }
+        return redirect()->to('/');
+      }catch(\Exception $ex){
+        flash('Wow!!! se presentó un problema al buscar datos... Intenta más tarde. El mensaje es el siguiente: '.$ex->getMessage(), 'danger')->important();
+      }
+    }
+
+    public function update_form(Request $request, $id){
+      try{
+        if($request->user()->id==$id){
+          $user = User::find($id);
+          $password_old=$user->password;
+          $user->fill($request->all());
+          if($request->password==''){
+            $user->password = bcrypt($password_old);
+          }else{
+            $user->password = bcrypt($user->password);
+          }
+          $user->update();
+          $nombre_completo=$user->paterno.' '.$user->materno.' '.$user->name;
+          flash('Se modificó el usuario: '.$nombre_completo, 'warning')->important();
+          return redirect()->route('usuario.alumno.show', $user->id);
+        }
+        return redirect()->to('/');
+      }catch(\Exception $ex){
+        flash('Wow!!! se presentó un problema al buscar datos... Intenta más tarde. El mensaje es el siguiente: '.$ex->getMessage(), 'danger')->important();
       }
     }
 }

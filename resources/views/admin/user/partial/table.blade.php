@@ -54,11 +54,49 @@
     // Validation
     function validation(response){
         if(response.responseJSON['name']){
-            $('.wrapper-nombre').addClass('has-error');
-            $('.wrapper-nombre .help-block>strong').html(response.responseJSON['name']);
+            $('.wrapper-name').addClass('has-error');
+            $('.wrapper-name .help-block').css('display','block');
+            $('.wrapper-name .help-block>strong').html(response.responseJSON['name']);
         }else{
-            $('.wrapper-nombre').removeClass('has-error');
-            $('.wrapper-nombre .help-block>strong').html('');
+            $('.wrapper-name').removeClass('has-error');
+            $('.wrapper-name .help-block').css('display','none');
+            $('.wrapper-name .help-block>strong').html('');
+        }
+        if(response.responseJSON['paterno']){
+            $('.wrapper-paterno').addClass('has-error');
+            $('.wrapper-paterno .help-block').css('display','block');
+            $('.wrapper-paterno .help-block>strong').html(response.responseJSON['paterno']);
+        }else{
+            $('.wrapper-paterno').removeClass('has-error');
+            $('.wrapper-paterno .help-block').css('display','none');
+            $('.wrapper-paterno .help-block>strong').html('');
+        }
+        if(response.responseJSON['email']){
+            $('.wrapper-email').addClass('has-error');
+            $('.wrapper-email .help-block').css('display','block');
+            $('.wrapper-email .help-block>strong').html(response.responseJSON['email']);
+        }else{
+            $('.wrapper-email').removeClass('has-error');
+            $('.wrapper-email .help-block').css('display','none');
+            $('.wrapper-email .help-block>strong').html('');
+        }
+        if(response.responseJSON['password']){
+            $('.wrapper-password').addClass('has-error');
+            $('.wrapper-password .help-block').css('display','block');
+            $('.wrapper-password .help-block>strong').html(response.responseJSON['password']);
+        }else{
+            $('.wrapper-password').removeClass('has-error');
+            $('.wrapper-password .help-block').css('display','none');
+            $('.wrapper-password .help-block>strong').html('');
+        }
+        if(response.responseJSON['tipo']){
+            $('.wrapper-tipo').addClass('has-error');
+            $('.wrapper-tipo .help-block').css('display','block');
+            $('.wrapper-tipo .help-block>strong').html(response.responseJSON['tipo']);
+        }else{
+            $('.wrapper-tipo').removeClass('has-error');
+            $('.wrapper-tipo .help-block').css('display','none');
+            $('.wrapper-tipo .help-block>strong').html('');
         }
     }
     // Paginación

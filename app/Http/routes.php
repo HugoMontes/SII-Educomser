@@ -167,4 +167,6 @@ Route::group(['prefix' => 'admin'], function(){
 Route::group(['prefix'=>'usuario', 'middleware'=>'auth'], function(){
     Route::get('home', 'backend\AlumnoController@index')->name('usuario.index');
     Route::get('alumno/{id}/show', 'backend\AlumnoController@show')->name('usuario.alumno.show');
+    Route::get('configuracion/{id}/edit', 'UserController@edit_form')->name('usuario.configuracion.edit_form');
+    Route::put('configuracion/{id}', 'UserController@update_form')->name('usuario.configuracion.update_form');
 });
