@@ -165,5 +165,6 @@ Route::group(['prefix' => 'admin'], function(){
 });
 
 Route::group(['prefix'=>'usuario', 'middleware'=>'auth'], function(){
-    Route::get('home', 'usuario\HomeController@index')->name('usuario.index');
+    Route::get('home', 'backend\AlumnoController@index')->name('usuario.index');
+    Route::get('alumno/{id}/show', 'backend\AlumnoController@show')->name('usuario.alumno.show');
 });

@@ -15,7 +15,7 @@
               </li>
           @elseif(Auth::user()->tipo == 'usuario')
               <li>
-                  <a href="{{ route('usuario.index') }}"><i class="fa fa-btn fa-unlock-alt"></i>&nbsp;&nbsp;&nbsp;Administrar</a>
+                  <a href="{{ route('usuario.alumno.show', Auth::user()->id ) }}"><i class="fa fa-btn fa-unlock-alt"></i>&nbsp;&nbsp;&nbsp;Administrar</a>
               </li>
           @endif
           <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>&nbsp;&nbsp;&nbsp;Cerrar Sesión</a></li>

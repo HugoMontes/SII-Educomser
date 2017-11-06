@@ -7,12 +7,13 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default" style="margin-top: 20px;">
-                <div class="panel-heading" style="font-size: x-large; font-weight: bold; text-align: center; padding: 20px 0;">Regístrese</div>
+                <div class="panel-heading" style="font-size: x-large; font-weight: bold; text-align: center; padding-top: 20px;">Regístrese</div>
                 <div class="panel-body">
+                    <p style="text-align: center;">Todos los campos con asterisco(*) son obligatorios</p>
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {!! csrf_field() !!}
                         <div class="form-group{{ $errors->has('ci') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Cedula de identidad*</label>
+                            <label class="col-md-4 control-label">Cedula de Identidad*</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="ci" value="{{ old('ci') }}" placeholder="Ej. 3141592">
                                 @if ($errors->has('ci'))
@@ -36,7 +37,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('paterno') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Apellido paterno*</label>
+                            <label class="col-md-4 control-label">Apellido Paterno*</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="paterno" value="{{ old('paterno') }}" placeholder="Ej. Perez">
                                 @if ($errors->has('paterno'))
@@ -48,7 +49,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('materno') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Apellido materno</label>
+                            <label class="col-md-4 control-label">Apellido Materno</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="materno" value="{{ old('materno') }}" placeholder="Ej. Gomez">
                                 @if ($errors->has('materno'))
